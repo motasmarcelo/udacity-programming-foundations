@@ -4,8 +4,13 @@ import os
 import shutil
 import random
 
-OUTPUT_DIR = "output"
 
+
+
+MESSAGE = """Did you like it??
+            """
+
+OUTPUT_DIR = "output"
 IMAGES_PATH = os.path.join(os.getcwd(),"alphabet")
 MESSAGE_OUTPUT = os.path.join(os.getcwd(), OUTPUT_DIR)
 
@@ -37,6 +42,8 @@ IMAGES_DICT = {
     'Y': 'kiev.jpg', 
     'Z': 'london.jpg',
     '.': 'los angeles.jpg',
+    '!': 'macau.jpg',
+    '?': 'madagascar.jpg',
     ' ': 'madrid.jpg'
 }
 
@@ -44,10 +51,11 @@ IMAGES_DICT = {
 def clear_output():
     try:
         shutil.rmtree(OUTPUT_DIR)
+    except OSError as err:
+        print 40*"=","ERROR",40*"="
+        print str(err)
+    finally:
         os.mkdir(OUTPUT_DIR)
-    except OSError:
-        pass
-
 
 
 def make_dictionary():
@@ -55,26 +63,46 @@ def make_dictionary():
 
 def encode_message(message):
     files = []
-    message =  message.upper()
+    message = " ".join(message.upper().split())
     for char in message:
         if char in IMAGES_DICT.keys():
             files.append(IMAGES_DICT[char])
     return files
 
 def new_file_name(filename, number, salt):
-    new_name = 
-    return 
+    number = int(number)
+    salt = int(salt)
+    lpad = str(number + salt)
+    rpad = str(number) if lpad > salt else ''
+    salt = int(random.random()*100)
+    filename = filename.split('.')
+    new_name = "".join([lpad, filename[0], rpad,'.',filename[1]])
+    return new_name
 
 
 
 def init(message):
-    file_list = encode_message(message)
-    salt = int(random.random()*100)
-    if file_list:
-        for file in file_list:
-            new_file = new_file_name(file, file_list.index(file))
-            shutil.copy(os.path.join(IMAGES_PATH, file), os.path.join(MESSAGE_OUTPUT, new_file)) 
+    clear_output()
+    message_list = encode_message(message)
+    filename_list = IMAGES_DICT.values()
+    filename_list.sort()
+    if message_list:
+        i = 0
+        pre_name = ''
+        for filename in message_list:
+            index = message_list.index(filename)
+            salt = int(random.random()*100)
+            new_file = new_file_name(pre_name + filename_list[i], index + i, salt)
+            shutil.copy(os.path.join(IMAGES_PATH, filename), os.path.join(MESSAGE_OUTPUT, new_file))
+            # print "%s - %s - %s" % (IMAGES_DICT.keys()[IMAGES_DICT.values().index(filename)], filename, new_file)
+            if i >= len(filename_list) - 1:
+                pre_name += "z"
+                i = 0
+            i += 1
+
+
+
 
 
 if __name__ == "__main__":
-    print encode_message("oi como vai")
+    init(MESSAGE)
