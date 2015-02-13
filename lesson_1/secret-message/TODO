@@ -1,0 +1,7 @@
+####---------TODO--------#####
+
+
+- implement ConfigParser to read MESSAGE, OUTPUT_DIR and IMAGES_DIR from configs;
+- implement keyboard reading to make interactive program;
+- implement argparse (cli OPTIONS);
+- beautify var's names;

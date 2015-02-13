@@ -7,7 +7,7 @@ import random
 
 
 
-MESSAGE = """Did you like it??
+MESSAGE = """Did you like it?
             """
 
 OUTPUT_DIR = "output"
@@ -79,8 +79,6 @@ def new_file_name(filename, number, salt):
     new_name = "".join([lpad, filename[0], rpad,'.',filename[1]])
     return new_name
 
-
-
 def init(message):
     clear_output()
     message_list = encode_message(message)
@@ -95,11 +93,10 @@ def init(message):
             new_file = new_file_name(pre_name + filename_list[i], index + i, salt)
             shutil.copy(os.path.join(IMAGES_PATH, filename), os.path.join(MESSAGE_OUTPUT, new_file))
             # print "%s - %s - %s" % (IMAGES_DICT.keys()[IMAGES_DICT.values().index(filename)], filename, new_file)
-            if i >= len(filename_list) - 1:
+            i += 1
+            if i >= len(filename_list):
                 pre_name += "z"
                 i = 0
-            i += 1
-
 
 
 
