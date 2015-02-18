@@ -7,7 +7,7 @@ colors = ["red", "blue", "yellow", "white", "black", "pink", "green"]
 
 def draw_square():
     window = turtle.Screen()
-    window.bgcolor("lightblue")
+    window.bgcolor("red")
     window.title("My Turtle Screenshot")
 
     tur = turtle.Turtle()
@@ -29,16 +29,16 @@ def draw_square():
     tur2.setpos(-300,200)
     tur2.down()
 
-    for i in range(3):
+    for i in range(1):
         for i in range(4):
             tur.forward(100)
             tur2.forward(200)
             tur.right(90)
             tur2.right(90)
-        x,y = tur.position()
-        tur.circle(50, 45)
-        tur.setpos(x + 10, y)
-        tur.color(colors[get_random()], "white")
+        # x,y = tur.position()
+        # tur.circle(50, 45)
+        # tur.setpos(x + 10, y)
+        # tur.color(colors[get_random()], "white")
 
     
 
