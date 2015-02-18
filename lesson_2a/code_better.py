@@ -17,8 +17,14 @@ def main():
     angie.shape("arrow")
     angie.color("blue")
     
-    draw_circle(angie, 100)
+    draw_circle(angie)
     
+    lisa = turtle.Turtle()
+    lisa.shape("triangle")
+    lisa.color("green")
+    
+    draw_triangle(lisa)
+
     window.exitonclick()
 
 def draw_square(turtle):
@@ -26,8 +32,14 @@ def draw_square(turtle):
         turtle.forward(100)
         turtle.right(90)
         
-def draw_circle(turtle, radius):
+def draw_circle(turtle, radius=50):
     turtle.circle(radius)
+
+def draw_triangle(turtle, size=100):
+    turtle.right(180)
+    for i in range(3):
+        turtle.forward(size)
+        turtle.left(120)
 
 
 main()
